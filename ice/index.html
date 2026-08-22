@@ -1,0 +1,45 @@
+<div style="margin-top:20px; color:#6cf; font-family:Consolas;">
+    <h2>ICE — WETTE‑SCORE</h2>
+    <div>Station: <span id="ice-station">C</span></div>
+    <div>Score: <span id="ice-score">0</span></div>
+    <div>Slide: <span id="ice-slide">0%</span></div>
+</div>
+
+<script>
+// -------------------------------
+// ICE — WETTE‑SCORE + SLIDE‑SIM
+// -------------------------------
+
+let station = "C";     // C → F → E → C
+let score   = 0;       // Wette‑Score
+let slide   = 0;       // Slide‑Prozent
+
+function nextStation() {
+    if (station === "C") station = "F";
+    else if (station === "F") station = "E";
+    else station = "C";
+}
+
+function updateScore() {
+    if (station === "C") score += 1;     // Idee
+    if (station === "F") score += 3;     // Feuer
+    if (station === "E") score += 5;     // Erfüllung
+}
+
+function updateSlide() {
+    slide = (slide + 7) % 100;           // 0 → 99 → 0
+}
+
+function updateUI() {
+    document.getElementById("ice-station").innerText = station;
+    document.getElementById("ice-score").innerText   = score;
+    document.getElementById("ice-slide").innerText   = slide + "%";
+}
+
+setInterval(() => {
+    nextStation();
+    updateScore();
+    updateSlide();
+    updateUI();
+}, 800);
+</script>
